@@ -14,6 +14,8 @@ import Blueprint from '../components/Blueprint.vue';
 .editor-whiteboard {
   width: 100vw;
   height: 100vh;
+
+  background-color: rgb(237, 232, 247);
 }
 
 </style>
