@@ -1,11 +1,7 @@
 <script setup>
 import Port from './Port.vue';
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})
+
+defineProps(["def"])
 </script>
 
 <template>
@@ -23,6 +19,7 @@ rx="9px" ry="9px"
 transform="translate(0 182)"
 >
   <Port
+  :def="def.services.main.in"
   transform="translate(90 0)"
   class="blueprint__port-input"
   />
@@ -32,6 +29,7 @@ transform="translate(0 182)"
 transform="translate(0 -18)"
 >
   <Port
+  :def="def.services.main.out"
   transform="translate(90 0)"
   class="blueprint__port-output"
   />

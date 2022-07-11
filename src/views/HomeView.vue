@@ -1,11 +1,62 @@
 <script setup>
 import Blueprint from '../components/Blueprint.vue';
+
+const blueprintDef = {
+  "id": "d46cda63-1c91-409b-a0ae-e0e4cdc61511",
+  "services": {
+    "main": {
+      "in": {
+        "type": "map",
+        "map": {
+          "a": {
+            "type": "primitive"
+          },
+          "b": {
+            "type": "number"
+          },
+          "c": {
+            "type": "boolean"
+          }
+        }
+      },
+      "out": {
+        "type": "map",
+        "map": {
+          "a": {
+            "type": "binary"
+          },
+          "b": {
+            "type": "number"
+          },
+          "c": {
+            "type": "stream",
+            "stream": {
+              "type": "map",
+              "map": {
+                "a": {
+                  "type": "primitive"
+                },
+                "b": {
+                  "type": "number"
+                },
+                "c": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+}
+
 </script>
 
 <template>
   <main>
     <svg class="editor-whiteboard">
-      <Blueprint></Blueprint>
+      <Blueprint :def="blueprintDef"></Blueprint>
     </svg>
   </main>
 </template>
