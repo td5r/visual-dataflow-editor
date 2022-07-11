@@ -1,9 +1,19 @@
 <script setup>
-import TheWelcome from '@/components/TheWelcome.vue'
+import Blueprint from '../components/Blueprint.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <svg class="editor-whiteboard">
+      <Blueprint></Blueprint>
+    </svg>
   </main>
 </template>
+
+<style>
+.editor-whiteboard {
+  width: 100vw;
+  height: 100vh;
+}
+
+</style>
