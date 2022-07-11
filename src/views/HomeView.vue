@@ -12,7 +12,10 @@ const blueprintDef = {
             "type": "primitive"
           },
           "b": {
-            "type": "binary"
+            "type": "stream",
+            "stream": {
+              "type": "binary"
+            }
           },
           "c": {
             "type": "map",

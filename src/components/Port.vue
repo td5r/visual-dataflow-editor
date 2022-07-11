@@ -60,6 +60,9 @@ rx="2" ry="2"
 <g v-else-if="isStream"
 class="port--stream"
 >
+<rect class="port__container--stream"
+:width="portSize" height="1px" transform="translate(0 -1)"
+></rect>
 <Port :def="def.stream"
 :nested-level="1"
 :vertical-offset="verticalOffset"
@@ -96,5 +99,9 @@ class="port"
   stroke: black;
   stroke-width: 1px;
   fill: transparent;
+}
+
+.port__container--stream {
+  fill: black;
 }
 </style>
