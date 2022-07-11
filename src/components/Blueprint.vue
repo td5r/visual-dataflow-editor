@@ -1,41 +1,40 @@
 <script setup>
 import Port from './Port.vue';
-
 defineProps(["def"])
 </script>
 
 <template>
-<svg:g
+<g
 transform="translate(200 200)"
 class="blueprint"
 >
 
-<svg:rect
+<rect
 class="blueprint__body"
 rx="9px" ry="9px"
-></svg:rect>
+></rect>
 
-<svg:g
-transform="translate(0 182)"
+<g
+transform="translate(0 -8)"
+class="blueprint__port-input"
 >
   <Port
   :def="def.services.main.in"
-  transform="translate(90 0)"
-  class="blueprint__port-input"
+  transform="translate(10 0)"
   />
-</svg:g>
+</g>
 
-<svg:g
-transform="translate(0 -18)"
+<g
+transform="translate(0 192)"
+class="blueprint__port-output"
 >
   <Port
   :def="def.services.main.out"
-  transform="translate(90 0)"
-  class="blueprint__port-output"
+  transform="translate(10 0)"
   />
-</svg:g>
+</g>
 
-</svg:g>
+</g>
 </template>
 
 <style scoped>
