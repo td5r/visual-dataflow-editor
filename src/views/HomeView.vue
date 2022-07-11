@@ -12,10 +12,35 @@ const blueprintDef = {
             "type": "primitive"
           },
           "b": {
-            "type": "number"
+            "type": "binary"
           },
           "c": {
-            "type": "boolean"
+            "type": "map",
+            "map": {
+              "a": {
+                "type": "string"
+              },
+              "b": {
+                "type": "boolean"
+              },
+              "c": {
+                "type": "map",
+                "map": {
+                  "a": {
+                    "type": "number"
+                  },
+                  "b": {
+                    "type": "binary"
+                  },
+                  "c": {
+                    "type": "string"
+                  },
+                  "d": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -26,7 +51,18 @@ const blueprintDef = {
             "type": "binary"
           },
           "b": {
-            "type": "number"
+            "type": "map",
+            "map": {
+              "a": {
+                "type": "primitive"
+              },
+              "b": {
+                "type": "number"
+              },
+              "c": {
+                "type": "boolean"
+              }
+            }
           },
           "c": {
             "type": "stream",

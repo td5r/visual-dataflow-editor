@@ -6,6 +6,10 @@ const props = defineProps({
     type: Object,
     required: true
   },
+  verticalOffset: {
+    type: Number,
+    default: 2 
+  },
   nestedLevel: {
     type: Number,
     default: 0 
@@ -14,22 +18,27 @@ const props = defineProps({
 
 const isMap = computed(() => props.def.type == "map")
 const isStream = computed(() => props.def.type == "stream")
-const mapPortCount = computed(() => props.def.type == "map"?Object.keys(props.def.map).length:1)
-console.log("nestedLevel", props.nestedLevel)
+const mapPortCount = computed(() => getSubportCount())
 
 const portSize = 10
 const portHeight = portSize-2;
-// ---------------lt--------rt-----------m-----------
+// ------------------------lt--------rt-----------m-----------
 const portPolygonPoints = `0,0 ${portSize},0 ${portSize/2},${portSize-2}`
 /*      lt---rt
          \   /
           \ /
            m
  */
+
+const getSubportCount = (mapPort) => {
+  const portType = !mapPort?props.def:mapPort
+  return portType.type === "map"?Object.keys(props.def.map).length:1
+}
 </script>
 
 <template>
 <g v-if="isMap"
+:transform="`translate(${portSize*(verticalOffset)+2} 0)`"
 class="port--map"
 >
 <!--
@@ -39,11 +48,12 @@ rx="2" ry="2"
 :width="(portSize+2)*mapPortCount"
 :height="portSize-1"
 />-->
-<rect v-if="nestedLevel>0" width="1px" height="1px" transform="translate(0 4)"></rect>
+<rect v-if="nestedLevel>0" width="3px" height="3px" transform="translate(-2 5)"></rect>
 <Port v-for="(subType, portName, i) in def.map"
-:transform="`translate(${i*(portSize+2)+nestedLevel*3} 0)`"
+:transform="`translate(${i*(portSize+1)} 0)`"
 :def="subType"
-:nested-level="nestedLevel+1"
+:vertical-offset="verticalOffset"
+:nested-level="1"
 ></Port>
 </g>
 
@@ -51,7 +61,8 @@ rx="2" ry="2"
 class="port--stream"
 >
 <Port :def="def.stream"
-:nested-level="nestedLevel"
+:nested-level="1"
+:vertical-offset="verticalOffset"
 ></Port>
 </g>
 
@@ -66,7 +77,7 @@ class="port"
   fill: black;
 }
 .port.string {
-  fill: crimson;
+  fill: orangered;
 }
 .port.boolean {
   fill: purple;
