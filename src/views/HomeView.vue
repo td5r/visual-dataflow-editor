@@ -88,12 +88,30 @@ const blueprintDef = {
       }
     }
   },
+  "geometry": {
+    "size": {
+      "width": 560,
+      "height": 400
+    }
+  },
   "operators": {
     "HTTPclient": {
-      "operator": "f7f5907d-758b-4892-8a3e-ae86b877b869"
+      "operator": "f7f5907d-758b-4892-8a3e-ae86b877b869",
+      "geometry": {
+        "position": {
+          "x": 10,
+          "y": 35.5
+        }
+      },
     },
     "Value2": {
       "operator": "8b62495a-e482-4a3e-8020-0ab8a350ad2d",
+      "geometry": {
+        "position": {
+          "x": 5,
+          "y": 144.5
+        }
+      },
       "properties": {
         "value": [
           {

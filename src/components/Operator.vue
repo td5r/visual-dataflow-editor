@@ -121,22 +121,27 @@ const props = defineProps({
   },
 })
 
+const size = {
+  w: Styles.Operator.w,
+  h: Styles.Operator.h,
+}
+
+const pos = props.def.geometry && props.def.geometry.position ? props.def.geometry.position: {x: 100, y: 100}
 const blueprintDef = blueprintDefs.find(bd => bd.id === props.def.operator)
-console.log("->", Styles.Port.h)
 
 </script>
 
 <template>
 <g
-:transform="`translate(${x} ${y})`"
+:transform="`translate(${pos.x} ${pos.y})`"
 class="operator"
 >
 
 <rect
 class="operator__body"
 rx="9px" ry="9px"
-:width="w"
-:height="h"
+:width="size.w"
+:height="size.h"
 ></rect>
 
 <g
@@ -150,7 +155,7 @@ class="operator__port-input"
 </g>
 
 <g
-:transform="`translate(0 ${h-Styles.Port.h})`"
+:transform="`translate(0 ${size.h-Styles.Port.h})`"
 class="operator__port-output"
 >
   <Port
