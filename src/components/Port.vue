@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toRefs } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
   def: {
@@ -18,10 +18,8 @@ const props = defineProps({
 
 const isMap = computed(() => props.def.type == "map")
 const isStream = computed(() => props.def.type == "stream")
-const mapPortCount = computed(() => getSubportCount())
 
 const portSize = 10
-const portHeight = portSize-2;
 // ------------------------lt--------rt-----------m-----------
 const portPolygonPoints = `0,0 ${portSize},0 ${portSize/2},${portSize-2}`
 /*      lt---rt
@@ -30,10 +28,6 @@ const portPolygonPoints = `0,0 ${portSize},0 ${portSize/2},${portSize-2}`
            m
  */
 
-const getSubportCount = (mapPort) => {
-  const portType = !mapPort?props.def:mapPort
-  return portType.type === "map"?Object.keys(props.def.map).length:1
-}
 </script>
 
 <template>
@@ -41,13 +35,6 @@ const getSubportCount = (mapPort) => {
 :transform="`translate(${portSize*(verticalOffset)+2} 0)`"
 class="port--map"
 >
-<!--
-<rect class="port__container--map"
-transform="translate(-1 -1)"
-rx="2" ry="2"
-:width="(portSize+2)*mapPortCount"
-:height="portSize-1"
-/>-->
 <rect v-if="nestedLevel>0" width="3px" height="3px" transform="translate(-2 5)"></rect>
 <Port v-for="(subType, portName, i) in def.map"
 :transform="`translate(${i*(portSize+1)} 0)`"
@@ -60,12 +47,9 @@ rx="2" ry="2"
 <g v-else-if="isStream"
 class="port--stream"
 >
-<rect class="port__container--stream"
-:width="portSize" height="1px" transform="translate(0 -1)"
-></rect>
 <Port :def="def.stream"
-:nested-level="1"
 :vertical-offset="verticalOffset"
+:nested-level="nestedLevel"
 ></Port>
 </g>
 
