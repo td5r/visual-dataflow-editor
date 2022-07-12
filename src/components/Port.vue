@@ -77,31 +77,31 @@ class="port"
 
 <style scoped>
 .port {
-  fill: black;
+  fill: #001247;
 }
 .port.string {
-  fill: orangered;
+  fill: #3A0CA3;
 }
 .port.boolean {
-  fill: purple;
+  fill: #7209B7;
 }
 .port.number,.port.primitive {
-  fill: aqua;
+  fill: #4CC9F0;
 }
 .port.binary {
-  fill: magenta;
+  fill: #F72585;
 }
 .port.trigger {
-  fill: slategrey;
+  fill: #4361EE;
 }
 
 .port__container--map {
-  stroke: black;
+  stroke: #001247;
   stroke-width: 1px;
   fill: transparent;
 }
 
 .port__container--stream {
-  fill: black;
+  fill: #001247;
 }
 </style>
