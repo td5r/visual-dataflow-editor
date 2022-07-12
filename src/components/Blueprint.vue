@@ -1,5 +1,6 @@
 <script setup>
 import Port from './Port.vue';
+import Operator from './Operator.vue';
 defineProps(["def"])
 </script>
 
@@ -13,6 +14,8 @@ class="blueprint"
 class="blueprint__body"
 rx="9px" ry="9px"
 ></rect>
+
+<Operator :def="operatorDef" v-for="(operatorDef, operatorName, i) in def.operators"/>
 
 <g
 transform="translate(0 -8)"

@@ -88,6 +88,24 @@ const blueprintDef = {
       }
     }
   },
+  "operators": {
+    "HTTPclient": {
+      "operator": "f7f5907d-758b-4892-8a3e-ae86b877b869"
+    },
+    "Value2": {
+      "operator": "8b62495a-e482-4a3e-8020-0ab8a350ad2d",
+      "properties": {
+        "value": [
+          {
+            "key": "Content-Type",
+            "values": [
+              "$contentType"
+            ]
+          }
+        ]
+      },
+    }
+  }
 }
 
 </script>
@@ -95,7 +113,7 @@ const blueprintDef = {
 <template>
   <main>
     <svg class="editor-whiteboard">
-      <Blueprint :def="blueprintDef"></Blueprint>
+      <Blueprint :def="blueprintDef"/>
     </svg>
   </main>
 </template>
