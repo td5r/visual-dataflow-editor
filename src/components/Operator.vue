@@ -2,101 +2,7 @@
 import { def } from '@vue/shared';
 import Styles from '../styles';
 import Port from './Port.vue';
-
-const blueprintDefs = [
-  {
-    "id": "f7f5907d-758b-4892-8a3e-ae86b877b869",
-    "services": {
-      "main": {
-        "in": {
-          "type": "map",
-          "map": {
-            "b": {
-              "type": "stream",
-              "stream": {
-                "type": "binary"
-              }
-            },
-            "c": {
-              "type": "map",
-              "map": {
-                "a": {
-                  "type": "string"
-                },
-                "b": {
-                  "type": "boolean"
-                },
-              }
-            }
-          }
-        },
-        "out": {
-          "type": "stream",
-          "stream": {
-            "type": "map",
-            "map": {
-              "a": {
-                "type": "primitive"
-              },
-              "b": {
-                "type": "number"
-              },
-              "c": {
-                "type": "boolean"
-              }
-            }
-          }
-        }
-      }
-    },
-  },
-  {
-    "id": "8b62495a-e482-4a3e-8020-0ab8a350ad2d",
-    "services": {
-      "main": {
-        "in": {
-          "type": "map",
-          "map": {
-            "b": {
-              "type": "stream",
-              "stream": {
-                "type": "binary"
-              }
-            },
-            "c": {
-              "type": "map",
-              "map": {
-                "a": {
-                  "type": "string"
-                },
-                "b": {
-                  "type": "boolean"
-                },
-              }
-            }
-          }
-        },
-        "out": {
-          "type": "stream",
-          "stream": {
-            "type": "map",
-            "map": {
-              "a": {
-                "type": "primitive"
-              },
-              "b": {
-                "type": "number"
-              },
-              "c": {
-                "type": "boolean"
-              }
-            }
-          }
-        }
-      }
-    },
-  }
-]
+import Blueprints from '../blueprints';
 
 const props = defineProps({
   def: {
@@ -127,7 +33,7 @@ const size = {
 }
 
 const pos = props.def.geometry && props.def.geometry.position ? props.def.geometry.position: {x: 100, y: 100}
-const blueprintDef = blueprintDefs.find(bd => bd.id === props.def.operator)
+const blueprintDef = Blueprints.find(bd => bd.id === props.def.operator)
 
 </script>
 
