@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
   def: {
@@ -10,11 +10,10 @@ const props = defineProps({
     type: Number,
     default: 2 
   },
-  nestedLevel: {
-    type: Number,
-    default: 0 
-  }
 })
+
+const emit = defineEmits(["updatePorts"])
+const nPorts = ref(0)
 
 const isMap = computed(() => props.def.type == "map")
 const isStream = computed(() => props.def.type == "stream")
@@ -28,6 +27,10 @@ const portPolygonPoints = `0,0 ${portSize},0 ${portSize/2},${portSize-2}`
            m
  */
 
+if (!(props.def.type == "map" || props.def.type == "stream")) {
+  emit("updatePorts", (1))
+}
+
 </script>
 
 <template>
@@ -35,13 +38,13 @@ const portPolygonPoints = `0,0 ${portSize},0 ${portSize/2},${portSize-2}`
 :transform="`translate(${portSize*(verticalOffset)+2} 0)`"
 class="port--map"
 >
-<rect v-if="nestedLevel>0" width="3px" height="3px" transform="translate(-2 5)"></rect>
 <Port v-for="(subType, portName, i) in def.map"
 :transform="`translate(${i*(portSize+1)} 0)`"
 :def="subType"
 :vertical-offset="verticalOffset"
-:nested-level="1"
+@update-ports="(n) => nPorts+=n"
 ></Port>
+<rect :width="nPorts*portSize" height="1px" transform="translate(0 0)"></rect>
 </g>
 
 <g v-else-if="isStream"
@@ -49,14 +52,16 @@ class="port--stream"
 >
 <Port :def="def.stream"
 :vertical-offset="verticalOffset"
-:nested-level="nestedLevel"
+@update-ports="(n) => nPorts+=n"
 ></Port>
 </g>
 
 <polygon v-else
 class="port"
 :class="def.type"
-:points="portPolygonPoints"/>
+:points="portPolygonPoints"
+@update-ports="(n) => nPorts+=n"
+/>
 </template>
 
 <style scoped>
