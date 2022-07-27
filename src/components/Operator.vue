@@ -19,17 +19,17 @@ const props = defineProps({
   },
   w: {
     type: Number,
-    default: 100,
+    default: Styles.Operator.w,
   },
   h: {
     type: Number,
-    default: 80,
+    default: Styles.Operator.h,
   },
 })
 
 const size = {
-  w: Styles.Operator.w,
-  h: Styles.Operator.h,
+  w: props.w,
+  h: props.h,
 }
 
 const pos = props.def.geometry && props.def.geometry.position ? props.def.geometry.position: {x: 100, y: 100}
@@ -45,13 +45,13 @@ class="operator"
 
 <rect
 class="operator__body"
-rx="9px" ry="9px"
+:rx="Styles.Operator.r" :ry="Styles.Operator.r"
 :width="size.w"
 :height="size.h"
 ></rect>
 
 <g
-transform="translate(0 -8)"
+:transform="`translate(0 ${-Styles.Port.h})`"
 class="operator__port-input"
 >
   <Port
@@ -75,8 +75,8 @@ class="operator__port-output"
 
 <style scoped>
 .operator__body {
-  stroke: black;
+  stroke: #FFFEFE;
   stroke-width: 1px;
-  fill: white;
+  fill: #FFFEFE;
 }
 </style>

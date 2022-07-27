@@ -29,7 +29,7 @@ class="blueprint"
 
 <rect
 class="blueprint__body"
-rx="9px" ry="9px"
+:rx="Styles.Operator.r" :ry="Styles.Operator.r"
 :width="size.width"
 :height="size.height"
 ></rect>
@@ -61,8 +61,8 @@ class="blueprint__port-output"
 
 <style scoped>
 .blueprint__body {
-  stroke: black;
+  stroke: #FFFEFE;
   stroke-width: 1px;
-  fill: white;
+  fill: transparent;
 }
 </style>

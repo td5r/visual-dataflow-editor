@@ -1,10 +1,11 @@
 export default {
     Port: {
-        w: 10,
-        h: 8
+        w: 8,
+        h: 6,
     },
     Operator: {
-        w: 100,
+        w: 80,
         h: 80,
+        r: 9,
     }
 }
