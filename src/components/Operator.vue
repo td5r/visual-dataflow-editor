@@ -1,5 +1,4 @@
 <script setup>
-import { def } from '@vue/shared';
 import Styles from '../styles';
 import Port from './Port.vue';
 import Blueprints from '../blueprints';

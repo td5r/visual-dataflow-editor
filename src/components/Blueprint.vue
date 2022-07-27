@@ -4,6 +4,7 @@ import Port from './Port.vue';
 import Operator from './Operator.vue';
 import { computed } from '@vue/reactivity';
 import Blueprints from '../blueprints';
+import { inject } from 'vue';
 
 const props = defineProps(["id"])
 const blueprint = Blueprints.find(bd => bd.id === props.id)
@@ -14,15 +15,27 @@ const position = {
   y: -size.height/2,
 }
 
-
 const attrTransform = computed(() => {
   return `translate(${position.x} ${position.y})`
 })
+
+const dragging = inject("dragging", false)
+const mouseDelta = inject("mouseDelta", {x: 0, y: 0})
+function whileMouseMoves(event) {
+  if (!dragging.value) {
+    return;
+  }
+
+  event.preventDefault();
+
+  console.log("\tmouse moved", mouseDelta.value)
+}
 
 </script>
 
 <template>
 <g
+@mousemove="whileMouseMoves"
 class="blueprint"
 :transform="attrTransform"
 >
@@ -34,7 +47,9 @@ class="blueprint__body"
 :height="size.height"
 ></rect>
 
-<Operator :def="operatorDef" v-for="(operatorDef, operatorName, i) in blueprint.operators"/>
+<Operator
+ :def="operatorDef"
+ v-for="(operatorDef, operatorName, i) in blueprint.operators"/>
 
 <g
 transform="translate(0 -8)"
