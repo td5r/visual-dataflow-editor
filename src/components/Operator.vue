@@ -1,5 +1,4 @@
 <script setup>
-import { def } from '@vue/shared';
 import Styles from '../styles';
 import Port from './Port.vue';
 import Blueprints from '../blueprints';
@@ -11,11 +10,11 @@ const props = defineProps({
   },
   x: {
     type: Number,
-    default: 10,
+    default: 0,
   },
   y: {
     type: Number,
-    default: 10,
+    default: 0,
   },
   w: {
     type: Number,
@@ -32,14 +31,13 @@ const size = {
   h: props.h,
 }
 
-const pos = props.def.geometry && props.def.geometry.position ? props.def.geometry.position: {x: 100, y: 100}
 const blueprintDef = Blueprints.find(bd => bd.id === props.def.operator)
 
 </script>
 
 <template>
 <g
-:transform="`translate(${pos.x} ${pos.y})`"
+:transform="`translate(${x} ${y})`"
 class="operator"
 >
 
