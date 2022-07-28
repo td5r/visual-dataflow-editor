@@ -4,10 +4,23 @@ import Port from './Port.vue';
 import Operator from './Operator.vue';
 import { computed } from '@vue/reactivity';
 import Blueprints from '../blueprints';
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
+import { def } from '@vue/shared';
 
 const props = defineProps(["id"])
 const blueprint = Blueprints.find(bd => bd.id === props.id)
+const operators = ref(Object.entries(blueprint.operators).map(([opName, op]) => {
+  return {
+    name: opName,
+    def: op,
+    pos: op.geometry&&op.geometry.position ? op.geometry.position : {x:0, y:0}
+  }
+}))
+
+
+let selectedOperator = ref(operators.value[0])
+
+console.log(selectedOperator.value)
 
 const size = blueprint.geometry && blueprint.geometry.size ? blueprint.geometry.size: {width: 400, height: 400}
 const position = {
@@ -27,6 +40,14 @@ function whileMouseMoves(event) {
   }
 
   event.preventDefault();
+
+  const pos = selectedOperator.value.pos
+  selectedOperator.value.pos = {
+    x: pos.x - mouseDelta.value.x,
+    y: pos.y - mouseDelta.value.y
+  }
+
+  console.log(">", pos.x, mouseDelta.x)
 
   console.log("\tmouse moved", mouseDelta.value)
 }
@@ -48,8 +69,10 @@ class="blueprint__body"
 ></rect>
 
 <Operator
- :def="operatorDef"
- v-for="(operatorDef, operatorName, i) in blueprint.operators"/>
+ :def="def"
+ :x="pos.x"
+ :y="pos.y"
+ v-for="({name, def, pos}, i) in operators"/>
 
 <g
 transform="translate(0 -8)"

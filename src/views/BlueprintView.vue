@@ -38,10 +38,9 @@ function whileMouseMoves(event) {
     x: event.clientX,
     y: event.clientY,
   }
-  const delta = {x: prev.x-curr.x, y: prev.y-curr.y}
-
+  mouseAction.delta.value = {x: prev.x-curr.x, y: prev.y-curr.y}
   mouseAction.prev = curr
-  mouseAction.delta.value = delta
+  console.log("-->", mouseAction)
 }
 function stopMouseAction(event) {
   event.preventDefault();
