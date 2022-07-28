@@ -43,13 +43,9 @@ function whileMouseMoves(event) {
 
   const pos = selectedOperator.value.pos
   selectedOperator.value.pos = {
-    x: pos.x - mouseDelta.value.x,
-    y: pos.y - mouseDelta.value.y
+    x: pos.x + mouseDelta.value.x,
+    y: pos.y + mouseDelta.value.y
   }
-
-  console.log(">", pos.x, mouseDelta.x)
-
-  console.log("\tmouse moved", mouseDelta.value)
 }
 
 </script>

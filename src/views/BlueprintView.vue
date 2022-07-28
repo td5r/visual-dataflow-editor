@@ -2,16 +2,9 @@
 import { provide, ref } from 'vue';
 import Blueprint from '../components/Blueprint.vue';
 
+
 const mouseAction = {
   dragging: ref(false),
-  start: {
-    x: 0,
-    y: 0
-  },
-  prev: {
-    x: 0,
-    y: 0,
-  },
   delta: ref({x:0, y:0})
 }
 provide("dragging", mouseAction.dragging)
@@ -23,8 +16,6 @@ function startDragging(event) {
     x: event.clientX,
     y: event.clientY,
   }
-
-  console.log("Start Dragging");
 }
 function whileMouseMoves(event) {
   event.preventDefault();
@@ -33,20 +24,31 @@ function whileMouseMoves(event) {
     return
   }
 
-  const prev = mouseAction.prev
-  const curr = {
-    x: event.clientX,
-    y: event.clientY,
-  }
-  mouseAction.delta.value = {x: prev.x-curr.x, y: prev.y-curr.y}
-  mouseAction.prev = curr
-  console.log("-->", mouseAction)
+  const svg = document.getElementById("svgcanvas")
+
+  mouseAction.delta.value = transformMouseMovementToSVG(svg, event)
 }
+
 function stopMouseAction(event) {
   event.preventDefault();
   mouseAction.dragging.value = false;
+}
 
-  console.log("Stop Dragging");
+function transformMouseMovementToSVG(svg, event) {
+  // Source: https://stackoverflow.com/a/59963464/19383215
+  const {clientX, clientY, movementX, movementY} = event
+  const DOM_pt = svg.createSVGPoint()
+  DOM_pt.x = clientX
+  DOM_pt.y = clientY
+
+  const {x, y} = DOM_pt.matrixTransform(svg.getScreenCTM().inverse())
+
+  DOM_pt.x += movementX
+  DOM_pt.y += movementY
+
+  const {x: last_x, y: last_y } = DOM_pt.matrixTransform(svg.getScreenCTM().inverse())
+
+  return {x: last_x - x, y: last_y - y}
 }
 
 </script>
@@ -54,6 +56,7 @@ function stopMouseAction(event) {
 <template>
   <main oncontextmenu="return false;" >
     <svg 
+    id="svgcanvas"
     @mousedown.left="startDragging"
     @mousemove="whileMouseMoves"
     @mouseup="stopMouseAction"
