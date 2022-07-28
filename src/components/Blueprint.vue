@@ -18,9 +18,7 @@ const operators = ref(Object.entries(blueprint.operators).map(([opName, op]) => 
 }))
 
 
-let selectedOperator = ref(operators.value[0])
-
-console.log(selectedOperator.value)
+let selected = ref(null)
 
 const size = blueprint.geometry && blueprint.geometry.size ? blueprint.geometry.size: {width: 400, height: 400}
 const position = {
@@ -35,14 +33,20 @@ const attrTransform = computed(() => {
 const dragging = inject("dragging", false)
 const mouseDelta = inject("mouseDelta", {x: 0, y: 0})
 function whileMouseMoves(event) {
+  if (selected.value === null)  {
+    return;
+  }
+
   if (!dragging.value) {
     return;
   }
 
   event.preventDefault();
 
-  const pos = selectedOperator.value.pos
-  selectedOperator.value.pos = {
+  const selectedOp = operators.value[selected.value]
+
+  const pos = selectedOp.pos
+  selectedOp.pos = {
     x: pos.x + mouseDelta.value.x,
     y: pos.y + mouseDelta.value.y
   }
@@ -65,6 +69,8 @@ class="blueprint__body"
 ></rect>
 
 <Operator
+ @mousedown="selected=i"
+ @mouseup="selected=null"
  :def="def"
  :x="pos.x"
  :y="pos.y"
