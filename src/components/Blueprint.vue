@@ -6,6 +6,7 @@ import { computed } from '@vue/reactivity';
 import Blueprints from '../blueprints';
 import { inject, ref } from 'vue';
 import { def } from '@vue/shared';
+import styles from '../styles';
 
 const props = defineProps(["id"])
 const blueprint = Blueprints.find(bd => bd.id === props.id)
@@ -52,6 +53,14 @@ function whileMouseMoves(event) {
   }
 }
 
+function transformOperatorPos(posXY) {
+  // operator position describes center of operator relative to center of blueprint
+  return {
+    x: posXY.x + (size.width - styles.Operator.w)/2,
+    y: posXY.y + (size.height - styles.Operator.h)/2,
+  }
+}
+
 </script>
 
 <template>
@@ -72,8 +81,8 @@ class="blueprint__body"
  @mousedown="selected=i"
  @mouseup="selected=null"
  :def="def"
- :x="pos.x"
- :y="pos.y"
+ :x="transformOperatorPos(pos).x"
+ :y="transformOperatorPos(pos).y"
  v-for="({name, def, pos}, i) in operators"/>
 
 <g
